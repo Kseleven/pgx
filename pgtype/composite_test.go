@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	pgx "github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
+	pgx "github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -204,7 +204,7 @@ create type point3d as (
 // Test for composite type from table instead of create type. Table types have system / hidden columns like tableoid,
 // cmax, xmax, etc. These are not included when sending or receiving composite types.
 //
-// https://github.com/jackc/pgx/issues/1576
+// https://github.com/Kseleven/pgx/issues/1576
 func TestCompositeCodecTranscodeStructWrapperForTable(t *testing.T) {
 	skipCockroachDB(t, "Server does not support composite types from table definitions")
 

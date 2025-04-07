@@ -6,9 +6,9 @@ import (
 	"reflect"
 	"testing"
 
-	pgx "github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxtest"
+	pgx "github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgtype"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/require"
 )
 
@@ -74,7 +74,7 @@ func TestJSONBCodecUnmarshalSQLNull(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1681
+// https://github.com/Kseleven/pgx/issues/1681
 func TestJSONBCodecEncodeJSONMarshalerThatCanBeWrapped(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		var jsonStr string

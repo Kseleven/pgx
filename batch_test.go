@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
-	"github.com/jackc/pgx/v5/pgxtest"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgconn"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -290,7 +290,7 @@ func TestConnSendBatchMany(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1801#issuecomment-2203784178
+// https://github.com/Kseleven/pgx/issues/1801#issuecomment-2203784178
 func TestConnSendBatchReadResultsWhenNothingQueued(t *testing.T) {
 	t.Parallel()
 
@@ -419,7 +419,7 @@ func TestConnSendBatchWithQueryRewriter(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/856
+// https://github.com/Kseleven/pgx/issues/856
 func TestConnSendBatchWithPreparedStatementAndStatementCacheDisabled(t *testing.T) {
 	t.Parallel()
 
@@ -799,7 +799,7 @@ func TestTxSendBatchRollback(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1578
+// https://github.com/Kseleven/pgx/issues/1578
 func TestSendBatchErrorWhileReadingResultsWithoutCallback(t *testing.T) {
 	t.Parallel()
 
@@ -1008,7 +1008,7 @@ func TestSendBatchSimpleProtocol(t *testing.T) {
 	assert.False(t, rows.Next())
 }
 
-// https://github.com/jackc/pgx/issues/1847#issuecomment-2347858887
+// https://github.com/Kseleven/pgx/issues/1847#issuecomment-2347858887
 func TestConnSendBatchErrorDoesNotLeaveOrphanedPreparedStatement(t *testing.T) {
 	t.Parallel()
 

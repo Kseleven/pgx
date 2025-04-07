@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	pgx "github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxtest"
+	pgx "github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgtype"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -139,7 +139,7 @@ func TestArrayCodecNamedSliceType(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1488
+// https://github.com/Kseleven/pgx/issues/1488
 func TestArrayCodecAnySliceArgument(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		type _int16Slice []int16
@@ -162,7 +162,7 @@ func TestArrayCodecAnySliceArgument(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1442
+// https://github.com/Kseleven/pgx/issues/1442
 func TestArrayCodecAnyArray(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		type _point3 [3]float32
@@ -185,7 +185,7 @@ func TestArrayCodecAnyArray(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1273#issuecomment-1218262703
+// https://github.com/Kseleven/pgx/issues/1273#issuecomment-1218262703
 func TestArrayCodecSliceArgConversion(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		arg := []string{
@@ -332,7 +332,7 @@ func TestArrayCodecEncodeMultipleDimensionsRagged(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1494
+// https://github.com/Kseleven/pgx/issues/1494
 func TestArrayCodecDecodeTextArrayWithTextOfNULL(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		{

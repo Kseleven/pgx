@@ -10,8 +10,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgconn"
 	"github.com/jackc/puddle/v2"
 )
 
@@ -75,7 +75,7 @@ func (cr *connResource) getPoolRows(c *Conn, r pgx.Rows) *poolRows {
 // Pool allows for connection reuse.
 type Pool struct {
 	// 64 bit fields accessed with atomics must be at beginning of struct to guarantee alignment for certain 32-bit
-	// architectures. See BUGS section of https://pkg.go.dev/sync/atomic and https://github.com/jackc/pgx/issues/1288.
+	// architectures. See BUGS section of https://pkg.go.dev/sync/atomic and https://github.com/Kseleven/pgx/issues/1288.
 	newConnsCount        int64
 	lifetimeDestroyCount int64
 	idleDestroyCount     int64

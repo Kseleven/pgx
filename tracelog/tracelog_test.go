@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/jackc/pgx/v5/pgxtest"
-	"github.com/jackc/pgx/v5/tracelog"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgxpool"
+	"github.com/Kseleven/pgx/v5/pgxtest"
+	"github.com/Kseleven/pgx/v5/tracelog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
@@ -179,7 +179,7 @@ func TestLogQuery(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1365
+// https://github.com/Kseleven/pgx/issues/1365
 func TestLogQueryArgsHandlesUTF8(t *testing.T) {
 	t.Parallel()
 
@@ -472,7 +472,7 @@ func TestLogPrepare(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/pull/2120
+// https://github.com/Kseleven/pgx/pull/2120
 func TestConcurrentUsage(t *testing.T) {
 	t.Parallel()
 

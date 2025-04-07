@@ -6,8 +6,8 @@ import (
 	"encoding/xml"
 	"testing"
 
-	pgx "github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxtest"
+	pgx "github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -47,7 +47,7 @@ func TestXMLCodec(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1273#issuecomment-1221414648
+// https://github.com/Kseleven/pgx/issues/1273#issuecomment-1221414648
 func TestXMLCodecUnmarshalSQLNull(t *testing.T) {
 	skipCockroachDB(t, "CockroachDB does not support XML.")
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {

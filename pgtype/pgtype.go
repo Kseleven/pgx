@@ -447,7 +447,7 @@ func (plan *scanPlanFail) Scan(src []byte, dst any) error {
 	// It would be surprising to the caller to have to cast the NULL (e.g. `select null::int`). So try to figure out a
 	// compatible data type for dst and scan with that.
 	//
-	// See https://github.com/jackc/pgx/issues/1326
+	// See https://github.com/Kseleven/pgx/issues/1326
 	if src == nil {
 		// As a horrible hack try all types to find anything that can scan into dst.
 		for oid := range plan.m.oidToType {
@@ -585,7 +585,7 @@ func TryFindUnderlyingTypeScanPlan(dst any) (plan WrappedScanPlanNextSetter, nex
 			}
 
 			// Get underlying type of any array.
-			// https://github.com/jackc/pgx/issues/2107
+			// https://github.com/Kseleven/pgx/issues/2107
 			if elemValue.Kind() == reflect.Array {
 				nextDstType = reflect.PointerTo(reflect.ArrayOf(elemValue.Len(), elemValue.Type().Elem()))
 			}
@@ -1339,7 +1339,7 @@ func (plan *encodePlanDriverValuer) Encode(value any, buf []byte) (newBuf []byte
 		return nil, err
 	}
 
-	// Prevent infinite loop. We can't encode this. See https://github.com/jackc/pgx/issues/1331.
+	// Prevent infinite loop. We can't encode this. See https://github.com/Kseleven/pgx/issues/1331.
 	if reflect.TypeOf(value) == reflect.TypeOf(scannedValue) {
 		return nil, fmt.Errorf("tried to encode %v via encoding to text and scanning but failed due to receiving same type back", value)
 	}
@@ -1445,13 +1445,13 @@ func TryWrapFindUnderlyingTypeEncodePlan(value any) (plan WrappedEncodePlanNextS
 	// json.RawMessage which is defined as []byte the underlying type should be considered as []byte. But any other slice
 	// does not have a special underlying type.
 	//
-	// https://github.com/jackc/pgx/issues/1763
+	// https://github.com/Kseleven/pgx/issues/1763
 	if refValue.Type() != byteSliceType && refValue.Type().AssignableTo(byteSliceType) {
 		return &underlyingTypeEncodePlan{nextValueType: byteSliceType}, refValue.Convert(byteSliceType).Interface(), true
 	}
 
 	// Get underlying type of any array.
-	// https://github.com/jackc/pgx/issues/2107
+	// https://github.com/Kseleven/pgx/issues/2107
 	if refValue.Kind() == reflect.Array {
 		underlyingArrayType := reflect.ArrayOf(refValue.Len(), refValue.Type().Elem())
 		if refValue.Type() != underlyingArrayType {

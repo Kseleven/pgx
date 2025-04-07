@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
-	"github.com/jackc/pgx/v5/pgxtest"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgconn"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/require"
 )
 
@@ -803,7 +803,7 @@ func TestConnCopyFromAutomaticStringConversion(t *testing.T) {
 	ensureConnValid(t, conn)
 }
 
-// https://github.com/jackc/pgx/discussions/1891
+// https://github.com/Kseleven/pgx/discussions/1891
 func TestConnCopyFromAutomaticStringConversionArray(t *testing.T) {
 	t.Parallel()
 

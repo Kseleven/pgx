@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxtest"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -1030,7 +1030,7 @@ func TestEncodeTypeRename(t *testing.T) {
 // 	}
 // }
 
-// https://github.com/jackc/pgx/issues/810
+// https://github.com/Kseleven/pgx/issues/810
 func TestRowsScanNilThenScanValue(t *testing.T) {
 	t.Parallel()
 

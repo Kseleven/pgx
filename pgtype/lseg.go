@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jackc/pgx/v5/internal/pgio"
+	"github.com/Kseleven/pgx/v5/internal/pgio"
 )
 
 type LsegScanner interface {

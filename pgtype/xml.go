@@ -30,17 +30,17 @@ func (c *XMLCodec) PlanEncode(m *Map, oid uint32, format int16, value any) Encod
 
 	// Cannot rely on driver.Valuer being handled later because anything can be marshalled.
 	//
-	// https://github.com/jackc/pgx/issues/1430
+	// https://github.com/Kseleven/pgx/issues/1430
 	//
 	// Check for driver.Valuer must come before xml.Marshaler so that it is guaranteed to be used
-	// when both are implemented https://github.com/jackc/pgx/issues/1805
+	// when both are implemented https://github.com/Kseleven/pgx/issues/1805
 	case driver.Valuer:
 		return &encodePlanDriverValuer{m: m, oid: oid, formatCode: format}
 
 	// Must come before trying wrap encode plans because a pointer to a struct may be unwrapped to a struct that can be
 	// marshalled.
 	//
-	// https://github.com/jackc/pgx/issues/1681
+	// https://github.com/Kseleven/pgx/issues/1681
 	case xml.Marshaler:
 		return &encodePlanXMLCodecEitherFormatMarshal{
 			marshal: c.Marshal,
@@ -109,8 +109,8 @@ func (c *XMLCodec) PlanScan(m *Map, oid uint32, format int16, target any) ScanPl
 		// This is to fix **string scanning. It seems wrong to special case **string, but it's not clear what a better
 		// solution would be.
 		//
-		// https://github.com/jackc/pgx/issues/1470 -- **string
-		// https://github.com/jackc/pgx/issues/1691 -- ** anything else
+		// https://github.com/Kseleven/pgx/issues/1470 -- **string
+		// https://github.com/Kseleven/pgx/issues/1691 -- ** anything else
 
 		if wrapperPlan, nextDst, ok := TryPointerPointerScanPlan(target); ok {
 			if nextPlan := m.planScan(oid, format, nextDst, 0); nextPlan != nil {
@@ -128,7 +128,7 @@ func (c *XMLCodec) PlanScan(m *Map, oid uint32, format int16, target any) ScanPl
 
 	// Cannot rely on sql.Scanner being handled later because scanPlanXMLToXMLUnmarshal will take precedence.
 	//
-	// https://github.com/jackc/pgx/issues/1418
+	// https://github.com/Kseleven/pgx/issues/1418
 	case sql.Scanner:
 		return &scanPlanSQLScanner{formatCode: format}
 	}

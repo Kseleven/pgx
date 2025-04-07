@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jackc/pgx/v5/internal/sanitize"
-	"github.com/jackc/pgx/v5/internal/stmtcache"
-	"github.com/jackc/pgx/v5/pgconn"
-	"github.com/jackc/pgx/v5/pgtype"
+	"github.com/Kseleven/pgx/v5/internal/sanitize"
+	"github.com/Kseleven/pgx/v5/internal/stmtcache"
+	"github.com/Kseleven/pgx/v5/pgconn"
+	"github.com/Kseleven/pgx/v5/pgtype"
 )
 
 // ConnConfig contains all the options used to establish a connection. It must be created by ParseConfig and
@@ -153,7 +153,7 @@ func ConnectWithOptions(ctx context.Context, connString string, options ParseCon
 // connConfig must have been created by ParseConfig.
 func ConnectConfig(ctx context.Context, connConfig *ConnConfig) (*Conn, error) {
 	// In general this improves safety. In particular avoid the config.Config.OnNotification mutation from affecting other
-	// connections with the same config. See https://github.com/jackc/pgx/issues/618.
+	// connections with the same config. See https://github.com/Kseleven/pgx/issues/618.
 	connConfig = connConfig.Copy()
 
 	return connect(ctx, connConfig)

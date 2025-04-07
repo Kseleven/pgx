@@ -23,7 +23,7 @@ type Query struct {
 // utf.DecodeRune returns the utf8.RuneError for errors. But that is actually rune U+FFFD -- the unicode replacement
 // character. utf8.RuneError is not an error if it is also width 3.
 //
-// https://github.com/jackc/pgx/issues/1380
+// https://github.com/Kseleven/pgx/issues/1380
 const replacementcharacterwidth = 3
 
 const maxBufSize = 16384 // 16 Ki
@@ -62,7 +62,7 @@ func (q *Query) Sanitize(args ...any) (string, error) {
 			}
 
 			// Prevent SQL injection via Line Comment Creation
-			// https://github.com/jackc/pgx/security/advisories/GHSA-m7wr-2xf7-cm9p
+			// https://github.com/Kseleven/pgx/security/advisories/GHSA-m7wr-2xf7-cm9p
 			buf.WriteByte(' ')
 
 			arg := args[argIdx]
@@ -90,7 +90,7 @@ func (q *Query) Sanitize(args ...any) (string, error) {
 			buf.Write(p)
 
 			// Prevent SQL injection via Line Comment Creation
-			// https://github.com/jackc/pgx/security/advisories/GHSA-m7wr-2xf7-cm9p
+			// https://github.com/Kseleven/pgx/security/advisories/GHSA-m7wr-2xf7-cm9p
 			buf.WriteByte(' ')
 		default:
 			return "", fmt.Errorf("invalid Part type: %T", part)

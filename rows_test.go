@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
-	"github.com/jackc/pgx/v5/pgxtest"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgconn"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 )
 
 type testRowScanner struct {
@@ -43,7 +43,7 @@ func (ers *testErrRowScanner) ScanRow(rows pgx.Rows) error {
 	return errors.New(string(*ers))
 }
 
-// https://github.com/jackc/pgx/issues/1654
+// https://github.com/Kseleven/pgx/issues/1654
 func TestRowScannerErrorIsFatalToRows(t *testing.T) {
 	t.Parallel()
 
@@ -260,7 +260,7 @@ func TestCollectOneRowIgnoresExtraRows(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1334
+// https://github.com/Kseleven/pgx/issues/1334
 func TestCollectOneRowPrefersPostgreSQLErrorOverErrNoRows(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		_, err := conn.Exec(ctx, `create temporary table t (name text not null unique)`)

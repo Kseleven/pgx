@@ -14,10 +14,10 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxtest"
-	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgtype"
+	"github.com/Kseleven/pgx/v5/pgxtest"
+	_ "github.com/Kseleven/pgx/v5/stdlib"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -313,7 +313,7 @@ func TestPointerPointerStructScan(t *testing.T) {
 	require.Equal(t, 1, c.ID)
 }
 
-// https://github.com/jackc/pgx/issues/1263
+// https://github.com/Kseleven/pgx/issues/1263
 func TestMapScanPtrToPtrToSlice(t *testing.T) {
 	m := pgtype.NewMap()
 	src := []byte("{foo,bar}")
@@ -346,7 +346,7 @@ func (s databaseValuerString) Value() (driver.Value, error) {
 	return fmt.Sprintf("%d", len(s)), nil
 }
 
-// https://github.com/jackc/pgx/issues/1319
+// https://github.com/Kseleven/pgx/issues/1319
 func TestMapEncodeTextFormatDatabaseValuerThatIsRenamedSimpleType(t *testing.T) {
 	m := pgtype.NewMap()
 	src := databaseValuerString("foo")
@@ -365,7 +365,7 @@ func (s databaseValuerFmtStringer) String() string {
 	return "foobar"
 }
 
-// https://github.com/jackc/pgx/issues/1311
+// https://github.com/Kseleven/pgx/issues/1311
 func TestMapEncodeTextFormatDatabaseValuerThatIsFmtStringer(t *testing.T) {
 	m := pgtype.NewMap()
 	src := databaseValuerFmtStringer("")
@@ -390,7 +390,7 @@ func TestMapEncodeBinaryFormatDatabaseValuerThatReturnsString(t *testing.T) {
 	require.Equal(t, []byte{0, 0, 0, 42}, buf)
 }
 
-// https://github.com/jackc/pgx/issues/1445
+// https://github.com/Kseleven/pgx/issues/1445
 func TestMapEncodeDatabaseValuerThatReturnsStringIntoUnregisteredTypeTextFormat(t *testing.T) {
 	m := pgtype.NewMap()
 	buf, err := m.Encode(unregisteredOID, pgtype.TextFormatCode, driverValuerFunc(func() (driver.Value, error) { return "foo", nil }), nil)
@@ -398,7 +398,7 @@ func TestMapEncodeDatabaseValuerThatReturnsStringIntoUnregisteredTypeTextFormat(
 	require.Equal(t, []byte("foo"), buf)
 }
 
-// https://github.com/jackc/pgx/issues/1445
+// https://github.com/Kseleven/pgx/issues/1445
 func TestMapEncodeDatabaseValuerThatReturnsByteSliceIntoUnregisteredTypeTextFormat(t *testing.T) {
 	m := pgtype.NewMap()
 	buf, err := m.Encode(unregisteredOID, pgtype.TextFormatCode, driverValuerFunc(func() (driver.Value, error) { return []byte{0, 1, 2, 3}, nil }), nil)
@@ -420,7 +420,7 @@ func TestMapEncodeByteSliceIntoUnregisteredTypeTextFormat(t *testing.T) {
 	require.Equal(t, []byte(`\x00010203`), buf)
 }
 
-// https://github.com/jackc/pgx/issues/1763
+// https://github.com/Kseleven/pgx/issues/1763
 func TestMapEncodeNamedTypeOfByteSliceIntoTextTextFormat(t *testing.T) {
 	m := pgtype.NewMap()
 	buf, err := m.Encode(pgtype.TextOID, pgtype.TextFormatCode, json.RawMessage(`{"foo": "bar"}`), nil)
@@ -428,7 +428,7 @@ func TestMapEncodeNamedTypeOfByteSliceIntoTextTextFormat(t *testing.T) {
 	require.Equal(t, []byte(`{"foo": "bar"}`), buf)
 }
 
-// https://github.com/jackc/pgx/issues/1326
+// https://github.com/Kseleven/pgx/issues/1326
 func TestMapScanPointerToRenamedType(t *testing.T) {
 	srcBuf := []byte("foo")
 	m := pgtype.NewMap()
@@ -440,7 +440,7 @@ func TestMapScanPointerToRenamedType(t *testing.T) {
 	assert.Equal(t, "foo", string(*rs))
 }
 
-// https://github.com/jackc/pgx/issues/1326
+// https://github.com/Kseleven/pgx/issues/1326
 func TestMapScanNullToWrongType(t *testing.T) {
 	m := pgtype.NewMap()
 
@@ -523,7 +523,7 @@ func (v databaseValuerUUID) Value() (driver.Value, error) {
 	return fmt.Sprintf("%x", v), nil
 }
 
-// https://github.com/jackc/pgx/issues/1502
+// https://github.com/Kseleven/pgx/issues/1502
 func TestMapEncodePlanCacheUUIDTypeConfusion(t *testing.T) {
 	expected := []byte{
 		0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0xb, 0x86, 0, 0, 0, 2, 0, 0, 0, 1,
@@ -547,7 +547,7 @@ func TestMapEncodePlanCacheUUIDTypeConfusion(t *testing.T) {
 	require.Error(t, err)
 }
 
-// https://github.com/jackc/pgx/issues/1763
+// https://github.com/Kseleven/pgx/issues/1763
 func TestMapEncodeRawJSONIntoUnknownOID(t *testing.T) {
 	m := pgtype.NewMap()
 	buf, err := m.Encode(0, pgtype.TextFormatCode, json.RawMessage(`{"foo": "bar"}`), nil)

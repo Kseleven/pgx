@@ -6,7 +6,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
-	"github.com/jackc/pgx/v5/internal/pgio"
+
+	"github.com/Kseleven/pgx/v5/internal/pgio"
 )
 
 type SASLInitialResponse struct {

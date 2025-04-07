@@ -15,12 +15,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/jackc/pgx/v5/stdlib"
-	"github.com/jackc/pgx/v5/tracelog"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgconn"
+	"github.com/Kseleven/pgx/v5/pgtype"
+	"github.com/Kseleven/pgx/v5/pgxpool"
+	"github.com/Kseleven/pgx/v5/stdlib"
+	"github.com/Kseleven/pgx/v5/tracelog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -427,7 +427,7 @@ func TestConnConcurrency(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/781
+// https://github.com/Kseleven/pgx/issues/781
 func TestConnQueryDifferentScanPlansIssue781(t *testing.T) {
 	testWithAllQueryExecModes(t, func(t *testing.T, db *sql.DB) {
 		var s string
@@ -801,8 +801,8 @@ func TestConnPrepareContextSuccess(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1753#issuecomment-1746033281
-// https://github.com/jackc/pgx/issues/1754#issuecomment-1752004634
+// https://github.com/Kseleven/pgx/issues/1753#issuecomment-1746033281
+// https://github.com/Kseleven/pgx/issues/1754#issuecomment-1752004634
 func TestConnMultiplePrepareAndDeallocate(t *testing.T) {
 	testWithAllQueryExecModes(t, func(t *testing.T, db *sql.DB) {
 		skipCockroachDB(t, db, "Server does not support pg_prepared_statements")
@@ -1120,7 +1120,7 @@ func TestQueryLifeCycle(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/409
+// https://github.com/Kseleven/pgx/issues/409
 func TestScanJSONIntoJSONRawMessage(t *testing.T) {
 	testWithAllQueryExecModes(t, func(t *testing.T, db *sql.DB) {
 		var msg json.RawMessage
@@ -1175,7 +1175,7 @@ func TestRegisterConnConfig(t *testing.T) {
 	assert.Equal(t, "select 1", l.data["sql"])
 }
 
-// https://github.com/jackc/pgx/issues/958
+// https://github.com/Kseleven/pgx/issues/958
 func TestConnQueryRowConstraintErrors(t *testing.T) {
 	testWithAllQueryExecModes(t, func(t *testing.T, db *sql.DB) {
 		skipPostgreSQLVersionLessThan(t, db, 11)

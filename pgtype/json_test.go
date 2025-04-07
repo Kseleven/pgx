@@ -10,9 +10,9 @@ import (
 	"reflect"
 	"testing"
 
-	pgx "github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxtest"
+	pgx "github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgtype"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/require"
 )
 
@@ -57,18 +57,18 @@ func TestJSONCodec(t *testing.T) {
 		{[]byte(nil), new([]byte), isExpectedEqBytes([]byte(nil))},
 		{nil, new([]byte), isExpectedEqBytes([]byte(nil))},
 
-		// Test sql.Scanner. (https://github.com/jackc/pgx/issues/1418)
+		// Test sql.Scanner. (https://github.com/Kseleven/pgx/issues/1418)
 		{"42", new(sql.NullInt64), isExpectedEq(sql.NullInt64{Int64: 42, Valid: true})},
 
-		// Test driver.Valuer. (https://github.com/jackc/pgx/issues/1430)
+		// Test driver.Valuer. (https://github.com/Kseleven/pgx/issues/1430)
 		{sql.NullInt64{Int64: 42, Valid: true}, new(sql.NullInt64), isExpectedEq(sql.NullInt64{Int64: 42, Valid: true})},
 
-		// Test driver.Valuer is used before json.Marshaler (https://github.com/jackc/pgx/issues/1805)
+		// Test driver.Valuer is used before json.Marshaler (https://github.com/Kseleven/pgx/issues/1805)
 		{Issue1805(7), new(Issue1805), isExpectedEq(Issue1805(7))},
-		// Test driver.Scanner is used before json.Unmarshaler (https://github.com/jackc/pgx/issues/2146)
+		// Test driver.Scanner is used before json.Unmarshaler (https://github.com/Kseleven/pgx/issues/2146)
 		{Issue2146(7), new(*Issue2146), isPtrExpectedEq(Issue2146(7))},
 
-		// Test driver.Scanner without pointer receiver (https://github.com/jackc/pgx/issues/2204)
+		// Test driver.Scanner without pointer receiver (https://github.com/Kseleven/pgx/issues/2204)
 		{NonPointerJSONScanner{V: stringPtr("{}")}, NonPointerJSONScanner{V: &str}, func(a any) bool { return str == "{}" }},
 	})
 
@@ -162,7 +162,7 @@ func (i NonPointerJSONScanner) Value() (driver.Value, error) {
 	return i.V, nil
 }
 
-// https://github.com/jackc/pgx/issues/1273#issuecomment-1221414648
+// https://github.com/Kseleven/pgx/issues/1273#issuecomment-1221414648
 func TestJSONCodecUnmarshalSQLNull(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		// Slices are nilified
@@ -204,7 +204,7 @@ func TestJSONCodecUnmarshalSQLNull(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1470
+// https://github.com/Kseleven/pgx/issues/1470
 func TestJSONCodecPointerToPointerToString(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		var s *string
@@ -219,7 +219,7 @@ func TestJSONCodecPointerToPointerToString(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1691
+// https://github.com/Kseleven/pgx/issues/1691
 func TestJSONCodecPointerToPointerToInt(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		n := 44
@@ -230,7 +230,7 @@ func TestJSONCodecPointerToPointerToInt(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1691
+// https://github.com/Kseleven/pgx/issues/1691
 func TestJSONCodecPointerToPointerToStruct(t *testing.T) {
 	defaultConnTestRunner.RunTest(context.Background(), t, func(ctx context.Context, t testing.TB, conn *pgx.Conn) {
 		type ImageSize struct {
@@ -272,7 +272,7 @@ func (t ChildIssue1681) MarshalJSON() ([]byte, error) {
 	return []byte(`{"someVal": false}`), nil
 }
 
-// https://github.com/jackc/pgx/issues/1681
+// https://github.com/Kseleven/pgx/issues/1681
 func TestJSONCodecEncodeJSONMarshalerThatCanBeWrapped(t *testing.T) {
 	skipCockroachDB(t, "CockroachDB treats json as jsonb. This causes it to format differently than PostgreSQL.")
 

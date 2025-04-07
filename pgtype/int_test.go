@@ -7,8 +7,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxtest"
+	"github.com/Kseleven/pgx/v5/pgtype"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 )
 
 func TestInt2Codec(t *testing.T) {

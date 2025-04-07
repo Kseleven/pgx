@@ -70,7 +70,7 @@ See example_custom_type_test.go for an example of a custom type for the PostgreS
 
 Sometimes pgx supports a PostgreSQL type such as numeric but the Go type is in an external package that does not have
 pgx support such as github.com/shopspring/decimal. These types can be registered with pgtype with custom conversion
-logic. See https://github.com/jackc/pgx-shopspring-decimal and https://github.com/jackc/pgx-gofrs-uuid for example
+logic. See https://github.com/Kseleven/pgx-shopspring-decimal and https://github.com/Kseleven/pgx-gofrs-uuid for example
 integrations.
 
 New PostgreSQL Type Support
@@ -178,7 +178,7 @@ the Codec (see TryFindUnderlyingTypeScanPlan).
 These plan wrappers are contained in Map.TryWrapScanPlanFuncs. By default these contain shared logic to handle renamed
 types, pointers to pointers, slices, composite types, etc. Additional plan wrappers can be added to seamlessly integrate
 types that do not support pgx directly. For example, the before mentioned
-https://github.com/jackc/pgx-shopspring-decimal package detects decimal.Decimal values, wraps them in something
+https://github.com/Kseleven/pgx-shopspring-decimal package detects decimal.Decimal values, wraps them in something
 implementing NumericScanner and passes that to the Codec.
 
 Map.Scan and Map.Encode are convenience methods that wrap Map.PlanScan and Map.PlanEncode.  Determining how to scan or

@@ -10,10 +10,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxtest"
+	"github.com/Kseleven/pgx/v5"
+	"github.com/Kseleven/pgx/v5/pgconn"
+	"github.com/Kseleven/pgx/v5/pgtype"
+	"github.com/Kseleven/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -551,7 +551,7 @@ func TestPrepareWithDigestedName(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/pull/1795
+// https://github.com/Kseleven/pgx/pull/1795
 func TestDeallocateInAbortedTransaction(t *testing.T) {
 	t.Parallel()
 
@@ -1340,7 +1340,7 @@ func TestRawValuesUnderlyingMemoryReused(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1847
+// https://github.com/Kseleven/pgx/issues/1847
 func TestConnDeallocateInvalidatedCachedStatementsWhenCanceled(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
 	defer cancel()
@@ -1371,7 +1371,7 @@ func TestConnDeallocateInvalidatedCachedStatementsWhenCanceled(t *testing.T) {
 	})
 }
 
-// https://github.com/jackc/pgx/issues/1847
+// https://github.com/Kseleven/pgx/issues/1847
 func TestConnDeallocateInvalidatedCachedStatementsInTransactionWithBatch(t *testing.T) {
 	t.Parallel()
 
