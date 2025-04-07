@@ -12,6 +12,9 @@ The toolkit component is a related set of packages that implement PostgreSQL fun
 and type mapping between PostgreSQL and Go. These underlying packages can be used to implement alternative drivers,
 proxies, load balancers, logical replication clients, etc.
 
+Fork Feature:
+- support opengauss `password_encryption_type=2` sha256 algorithm;
+
 ## Example Usage
 
 ```go
