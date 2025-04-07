@@ -1,3 +1,8 @@
+# 5.7.5 (April 7, 2025)
+
+* fork from pgx:v5.7.4
+* add opengauss sha256 sasl support
+
 # 5.7.4 (March 24, 2025)
 
 * Fix / revert change to scanning JSON `null` (Felix Röhrich)
