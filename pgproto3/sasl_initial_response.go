@@ -2,16 +2,17 @@ package pgproto3
 
 import (
 	"bytes"
+	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
-
 	"github.com/jackc/pgx/v5/internal/pgio"
 )
 
 type SASLInitialResponse struct {
 	AuthMechanism string
 	Data          []byte
+	IsECDHESHA256 bool
 }
 
 // Frontend identifies this message as sendable by a PostgreSQL frontend.
@@ -40,15 +41,30 @@ func (dst *SASLInitialResponse) Decode(src []byte) error {
 
 // Encode encodes src into dst. dst will include the 1 byte message type identifier and the 4 byte message length.
 func (src *SASLInitialResponse) Encode(dst []byte) ([]byte, error) {
-	dst, sp := beginMessage(dst, 'p')
+	if src.IsECDHESHA256 {
+		dst = append(dst, src.encodeECDHESHA256()...)
+		return finishMessage(dst, 1)
+	}
 
+	dst, sp := beginMessage(dst, 'p')
 	dst = append(dst, []byte(src.AuthMechanism)...)
 	dst = append(dst, 0)
-
 	dst = pgio.AppendInt32(dst, int32(len(src.Data)))
 	dst = append(dst, src.Data...)
-
 	return finishMessage(dst, sp)
+
+}
+
+func (src *SASLInitialResponse) encodeECDHESHA256() []byte {
+	var buf bytes.Buffer
+	buf.Write([]byte("p"))
+	x := make([]byte, 4)
+	binary.BigEndian.PutUint32(x, uint32(4+len(src.Data)+1))
+	buf.Write(x)
+	buf.Write(src.Data)
+	buf.Write([]byte{0})
+
+	return buf.Bytes()
 }
 
 // MarshalJSON implements encoding/json.Marshaler.

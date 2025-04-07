@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"errors"
+	"strconv"
 
 	"github.com/jackc/pgx/v5/internal/pgio"
 )
@@ -34,15 +35,35 @@ func (dst *AuthenticationSASL) Decode(src []byte) error {
 	}
 
 	authMechanisms := src[4:]
+	var err error
 	for len(authMechanisms) > 1 {
 		idx := bytes.IndexByte(authMechanisms, 0)
 		if idx == -1 {
-			return &invalidMessageFormatErr{messageType: "AuthenticationSASL", details: "unterminated string"}
+			err = &invalidMessageFormatErr{messageType: "AuthenticationSASL", details: "unterminated string"}
+			break
 		}
 		dst.AuthMechanisms = append(dst.AuthMechanisms, string(authMechanisms[:idx]))
 		authMechanisms = authMechanisms[idx+1:]
 	}
 
+	if err != nil {
+		if len(src) < 128 {
+			return err
+		}
+
+		var buf bytes.Buffer
+		buf.Write(src[8:])
+		random64code := string(buf.Next(64))
+		token := string(buf.Next(8))
+		serverIteration := strconv.Itoa(int(int32(binary.BigEndian.Uint32([]byte{0, 0, 39, 16}))))
+
+		dst.AuthMechanisms = []string{
+			"ECDHE-RSA-AES128-GCM-SHA256",
+			random64code,
+			token,
+			serverIteration,
+		}
+	}
 	return nil
 }
 

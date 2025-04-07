@@ -51,12 +51,17 @@ func TestConnect(t *testing.T) {
 			defer cancel()
 
 			connString := os.Getenv(tt.env)
+			connString = `user=lx password=Linking@201907^%$# host=10.0.0.67 port=25432 database=lx`
 			if connString == "" {
 				t.Skipf("Skipping due to missing environment variable %v", tt.env)
 			}
 
 			conn, err := pgconn.Connect(ctx, connString)
 			require.NoError(t, err)
+			r := conn.Exec(ctx, "SELECT version()")
+			res, err := r.ReadAll()
+			require.NoError(t, err)
+			t.Log(res)
 
 			closeConn(t, conn)
 		})
