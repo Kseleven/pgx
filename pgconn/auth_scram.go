@@ -67,7 +67,6 @@ func (c *PgConn) scramAuth(serverAuthMechanisms []string) error {
 	// Receive server-first-message payload in an AuthenticationSASLContinue.
 	saslContinue, err := c.rxSASLContinue()
 	if err != nil {
-		fmt.Println("rxSASLContinue", err.Error())
 		return err
 	}
 	if hasECDHESHA256 && saslContinue == nil {

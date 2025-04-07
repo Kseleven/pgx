@@ -51,7 +51,6 @@ func TestConnect(t *testing.T) {
 			defer cancel()
 
 			connString := os.Getenv(tt.env)
-			connString = `user=lx password=Linking@201907^%$# host=10.0.0.67 port=25432 database=lx`
 			if connString == "" {
 				t.Skipf("Skipping due to missing environment variable %v", tt.env)
 			}
